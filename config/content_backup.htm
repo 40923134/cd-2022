@@ -2,14 +2,130 @@
 <p>學號:40923134</p>
 <p>網站:<a href="https://40923134.github.io/cd2022/content/index.html">https://40923134.github.io/cd2022/content/index.html</a></p>
 <p>倉儲:<a href="https://github.com/40923134/cd2022">https://github.com/40923134/cd2022</a></p>
+<h1>每周進度</h1>
+<h2>w2</h2>
+<p>
+<script src="/static/brython.js">
+</script>
+<script src="/static/brython_stdlib.js"></script>
+</p>
+<!-- for ggame -->
+<p>
+<script src="/get_page/cmsimde/static/jquery-3.3.1.min.js"></script>
+<script src="/get_page/cmsimde/static/jquery-ui.1.12.1.min.js"></script>
+<script src="/get_page/cmsimde/static/pixi-3.0.5.min.js"></script>
+<script src="/get_page/cmsimde/static/buzz-1.2.1.js"></script>
+<script src="/get_page/cmsimde/static/bs.js"></script>
+<script src="/get_page/downloads/brython_modules.js"></script>
+</p>
+<!-- Cango 程式庫 -->
+<p>
+<script src="/get_page/cmsimde/static/Cango-24v03-min.js"></script>
+<script src="/get_page/cmsimde/static/CangoAxes-6v01-min.js"></script>
+<script src="/get_page/cmsimde/static/gearUtils-09.js"></script>
+<script src="/get_page/cmsimde/static/SVGpathUtils-6v03-min.js"></script>
+<script src="/get_page/cmsimde/static/sylvester.js"></script>
+<script src="/get_page/cmsimde/static/PrairieDraw.js"></script>
+</p>
+<!-- for Konva 程式庫 -->
+<p>
+<script src="/get_page/cmsimde/static/konva.min.js"></script>
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
+}
+</script>
+</p>
+<p><!-- 導入 FileSaver 與 filereader --></p>
+<p>
+<script src="/get_page/cmsimde/static/ace/FileSaver.min.js" type="text/javascript"></script>
+<script src="/get_page/cmsimde/static/ace/filereader.js" type="text/javascript"></script>
+</p>
+<p><!-- 導入 ace --></p>
+<p>
+<script src="/get_page/cmsimde/static/ace/ace.js" type="text/javascript"></script>
+<script src="/get_page/cmsimde/static/ace/ext-language_tools.js" type="text/javascript"></script>
+<script src="/get_page/cmsimde/static/ace/mode-python3.js" type="text/javascript"></script>
+<script src="/get_page/cmsimde/static/ace/snippets/python.js" type="text/javascript"></script>
+</p>
+<p><!-- 請注意, 這裡使用 Javascript 將 localStorage["py_src"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--></p>
+<p>
+<script type="text/javascript">
+function doSave(storage_id, filename){
+    var blob = new Blob([localStorage[storage_id]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById(filename).value
+    saveAs(blob, filename+".py");
+}
+</script>
+</p>
+<p><!-- ######################  editor1 開始 ###################### --></p>
+<p><!-- 用來顯示程式碼的 editor 區域 --></p>
+<div id="kw_editor1" style="width: 600px; height: 300px;"></div>
+<p><!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --></p>
+<p><!-- 存擋表單開始 --></p>
+<form><label>Filename: <input id="kw_filename" placeholder="input file name" type="text"/>.py</label> <input onclick="doSave('kw_py_src1', 'kw_filename1');" type="submit" value="Save"/></form>
+<p><!-- 存擋表單結束 --></p>
+<p></p>
+<p><!-- 執行與清除按鈕開始 --></p>
+<p><button id="kw_run1">Run</button> <button id="kw_show_console1">Output</button> <button id="kw_clear_console1">清除輸出區</button><button id="clear_bd1">清除繪圖區</button><button onclick="window.location.reload()">Reload</button></p>
+<p><!-- 執行與清除按鈕結束 --></p>
+<p></p>
+<p><!-- 程式執行 ouput 區 --></p>
+<div style="width: 100%; height: 100%;"><textarea autocomplete="off" id="kw_console1"></textarea></div>
+<p><!-- Brython 程式執行的結果, 都以 brython_div 作為切入位置 --></p>
+<p><!-- 這裡的畫布 id 為 brython_div --></p>
+<div id="brython_div"></div>
+<!-- graphics-column is for ggame -->
+<div class="col-md-0" height="1" id="graphics-column" width="1"></div>
+<p><!-- ######################  editor1 結束 ###################### --></p>
+<p><!-- 以下可以開始利用 editor1 的設定編寫對應 Brython 程式 --></p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+# 清除畫布
+def clear_bd1(ev):
+    # 注意這裡清除的畫布 id 為 brython_div
+    bd = doc["brython_div"]
+    bd.clear()
+Ace1 = ace.Editor(editor_id="kw_editor1", console_id="kw_console1", container_id="kw__container1", storage_id="kw_py_src1" )
+# 從 gist 取出程式碼後, 放入 editor 作為 default 程式
+def run1():
+    # 利用 get 取下 src 變數值
+    try:
+        url = doc.query["src"]
+    except:
+        url = "https://gist.githubusercontent.com/mdecourse/05930b1775b77293523b59b1bbb43e57/raw/2ffeba334d9862a9b4d765f328bc95684879465e/grp2a_2022.py"
+    prog = open(url).read()
+
+    # 將程式載入編輯區
+    Ace1.editor.setValue(prog)
+    Ace1.editor.scrollToRow(0)
+    Ace1.editor.gotoLine(0)
+    # 直接執行程式
+    #ns = {'__name__':'__main__'}
+    #exec(prog, ns)
+    # 按下 run 按鈕
+    Ace1.run()
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['kw_run1'].bind('click', Ace1.run)
+doc['kw_show_console1'].bind('click', Ace1.show_console)
+doc['kw_clear_console1'].bind('click', Ace1.clear_console)
+doc['clear_bd1'].bind('click', clear_bd1)
+# 呼叫函式執行
+run1()
+</script>
+<h2>w7</h2>
 <h1>分組名單</h1>
-<p><em>cd2022ag1</em><br/>  <a href="https://a40923101.github.io/cd2022">40923101 web</a> | <a href="https://github.com/a40923101/cd2022">40923101 repo</a> | <br/>  <a href="https://40923103.github.io/cd2022">40923103 web</a> | <a href="https://github.com/40923103/cd2022">40923103 repo</a> | <br/>  <a href="https://40923108.github.io/cd2022">40923108 web</a> | <a href="https://github.com/40923108/cd2022">40923108 repo</a> | <br/>  <a href="https://40923119.github.io/cd2022">40923119 web</a> | <a href="https://github.com/40923119/cd2022">40923119 repo</a> | <br/>  <a href="https://s40923137.github.io/cd2022">40923137 web</a> | <a href="https://github.com/s40923137/cd2022">40923137 repo</a> | <br/>  <a href="https://40923154.github.io/cd2022">40923154 web</a> | <a href="https://github.com/40923154/cd2022">40923154 repo</a> | <br/>  <a href="https://ZHILIN-0817.github.io/cd2022">40923156 web</a> | <a href="https://github.com/ZHILIN-0817/cd2022">40923156 repo</a> | <br/>  <a href="https://40971134.github.io/cd2022">40971134 web</a> | <a href="https://github.com/40971134/cd2022">40971134 repo</a> | </p>
-<p><em>cd2022ag2</em><br/>  <a href="https://40923102.github.io/cd2022">40923102 web</a> | <a href="https://github.com/40923102/cd2022">40923102 repo</a> | <br/>  <a href="https://409231044.github.io/cd2022">40923104 web</a> | <a href="https://github.com/409231044/cd2022">40923104 repo</a> | <br/>  <a href="https://40923105.github.io/cd2022">40923105 web</a> | <a href="https://github.com/40923105/cd2022">40923105 repo</a> | <br/>  <a href="https://40923106.github.io/cd2022">40923106 web</a> | <a href="https://github.com/40923106/cd2022">40923106 repo</a> | <br/>  <a href="https://40923107.github.io/cd2022">40923107 web</a> | <a href="https://github.com/40923107/cd2022">40923107 repo</a> | <br/>  <a href="https://40923110.github.io/cd2022">40923110 web</a> | <a href="https://github.com/40923110/cd2022">40923110 repo</a> | <br/>  <a href="https://40923121.github.io/cd2022">40923121 web</a> | <a href="https://github.com/40923121/cd2022">40923121 repo</a> | <br/>  <a href="https://40923153.github.io/cd2022">40923153 web</a> | <a href="https://github.com/40923153/cd2022">40923153 repo</a> | </p>
-<p><em>cd2022ag3</em><br/>  <a href="https://CYC40923109.github.io/cd2022">40923109 web</a> | <a href="https://github.com/CYC40923109/cd2022">40923109 repo</a> | <br/>  <a href="https://40923111.github.io/cd2022">40923111 web</a> | <a href="https://github.com/40923111/cd2022">40923111 repo</a> | <br/>  <a href="https://40923114.github.io/cd2022">40923114 web</a> | <a href="https://github.com/40923114/cd2022">40923114 repo</a> | <br/>  <a href="https://jason60714.github.io/cd2022">40923115 web</a> | <a href="https://github.com/jason60714/cd2022">40923115 repo</a> | <br/>  <a href="https://40923122.github.io/cd2022">40923122 web</a> | <a href="https://github.com/40923122/cd2022">40923122 repo</a> | <br/>  <a href="https://40923129.github.io/cd2022">40923129 web</a> | <a href="https://github.com/40923129/cd2022">40923129 repo</a> | <br/>  <a href="https://a40923146.github.io/cd2022">40923146 web</a> | <a href="https://github.com/a40923146/cd2022">40923146 repo</a> | <br/>  <a href="https://40923148.github.io/cd2022">40923148 web</a> | <a href="https://github.com/40923148/cd2022">40923148 repo</a> | </p>
-<p><em>cd2022ag4</em><br/>  <a href="https://40923116.github.io/cd2022">40923116 web</a> | <a href="https://github.com/40923116/cd2022">40923116 repo</a> | <br/>  <a href="https://40923124.github.io/cd2022">40923124 web</a> | <a href="https://github.com/40923124/cd2022">40923124 repo</a> | <br/>  <a href="https://40923125.github.io/cd2022">40923125 web</a> | <a href="https://github.com/40923125/cd2022">40923125 repo</a> | <br/>  <a href="https://40923126-1.github.io/cd2022">40923126 web</a> | <a href="https://github.com/40923126-1/cd2022">40923126 repo</a> | <br/>  <a href="https://40923127-1.github.io/cd2022">40923127 web</a> | <a href="https://github.com/40923127-1/cd2022">40923127 repo</a> | <br/>  <a href="https://40923128.github.io/cd2022">40923128 web</a> | <a href="https://github.com/40923128/cd2022">40923128 repo</a> | <br/>  <a href="https://40923138.github.io/cd2022">40923138 web</a> | <a href="https://github.com/40923138/cd2022">40923138 repo</a> | <br/>  <a href="https://40923143.github.io/cd2022">40923143 web</a> | <a href="https://github.com/40923143/cd2022">40923143 repo</a> | </p>
-<p><em>cd2022ag5</em><br/>  <a href="https://40923123.github.io/cd2022">40923123 web</a> | <a href="https://github.com/40923123/cd2022">40923123 repo</a> | <br/>  <a href="https://40923131.github.io/cd2022">40923131 web</a> | <a href="https://github.com/40923131/cd2022">40923131 repo</a> | <br/>  <a href="https://40923133.github.io/cd2022">40923133 web</a> | <a href="https://github.com/40923133/cd2022">40923133 repo</a> | <br/>  <a href="https://40923134.github.io/cd2022">40923134 web</a> | <a href="https://github.com/40923134/cd2022">40923134 repo</a> | <br/>  <a href="https://40923135.github.io/cd2022">40923135 web</a> | <a href="https://github.com/40923135/cd2022">40923135 repo</a> | <br/>  <a href="https://40923139.github.io/cd2022">40923139 web</a> | <a href="https://github.com/40923139/cd2022">40923139 repo</a> | <br/>  <a href="https://40923142.github.io/cd2022">40923142 web</a> | <a href="https://github.com/40923142/cd2022">40923142 repo</a> | <br/>  <a href="https://40923151.github.io/cd2022">40923151 web</a> | <a href="https://github.com/40923151/cd2022">40923151 repo</a> | </p>
-<p><em>cd2022ag6</em><br/>  <a href="https://40923113.github.io/cd2022">40923113 web</a> | <a href="https://github.com/40923113/cd2022">40923113 repo</a> | <br/>  <a href="https://40923130.github.io/cd2022">40923130 web</a> | <a href="https://github.com/40923130/cd2022">40923130 repo</a> | <br/>  <a href="https://40923140.github.io/cd2022">40923140 web</a> | <a href="https://github.com/40923140/cd2022">40923140 repo</a> | <br/>  <a href="https://40923144.github.io/cd2022">40923144 web</a> | <a href="https://github.com/40923144/cd2022">40923144 repo</a> | <br/>  <a href="https://40923145.github.io/cd2022">40923145 web</a> | <a href="https://github.com/40923145/cd2022">40923145 repo</a> | <br/>  <a href="https://40923149r.github.io/cd2022">40923149 web</a> | <a href="https://github.com/40923149r/cd2022">40923149 repo</a> | <br/>  <a href="https://40923150.github.io/cd2022">40923150 web</a> | <a href="https://github.com/40923150/cd2022">40923150 repo</a> | <br/>  <a href="https://40923152.github.io/cd2022">40923152 web</a> | <a href="https://github.com/40923152/cd2022">40923152 repo</a> | </p>
-<p><em>cd2022ag7</em><br/>  <a href="https://40823132.github.io/cd2022">40823132 web</a> | <a href="https://github.com/40823132/cd2022">40823132 repo</a> | <br/>  <a href="https://40823143.github.io/cd2022">40823143 web</a> | <a href="https://github.com/40823143/cd2022">40823143 repo</a> | <br/>  <a href="https://Maxlee999.github.io/cd2022">40923117 web</a> | <a href="https://github.com/Maxlee999/cd2022">40923117 repo</a> | <br/>  <a href="https://40923118.github.io/cd2022">40923118 web</a> | <a href="https://github.com/40923118/cd2022">40923118 repo</a> | <br/>  <a href="https://40923120.github.io/cd2022">40923120 web</a> | <a href="https://github.com/40923120/cd2022">40923120 repo</a> | <br/>  <a href="https://40923136-1.github.io/cd2022">40923136 web</a> | <a href="https://github.com/40923136-1/cd2022">40923136 repo</a> | <br/>  <a href="https://40923147.github.io/cd2022">40923147 web</a> | <a href="https://github.com/40923147/cd2022">40923147 repo</a> | <br/>  <a href="https://40923157.github.io/cd2022">40923157 web</a> | <a href="https://github.com/40923157/cd2022">40923157 repo</a> |</p><h1>NX_video</h1>
+<p><em>cd2022ag1</em><br/>  <a href="https://a40923101.github.io/cd2022">40923101 web</a> | <a href="https://github.com/a40923101/cd2022">40923101 repo</a> | <br/>  <a href="https://40923103.github.io/cd2022">40923103 web</a> | <a href="https://github.com/40923103/cd2022">40923103 repo</a> | <br/>  <a href="https://40923108.github.io/cd2022">40923108 web</a> | <a href="https://github.com/40923108/cd2022">40923108 repo</a> | <br/>  <a href="https://40923119.github.io/cd2022">40923119 web</a> | <a href="https://github.com/40923119/cd2022">40923119 repo</a> | <br/>  <a href="https://s40923137.github.io/cd2022">40923137 web</a> | <a href="https://github.com/s40923137/cd2022">40923137 repo</a> | <br/>  <a href="https://40923154.github.io/cd2022">40923154 web</a> | <a href="https://github.com/40923154/cd2022">40923154 repo</a> | <br/>  <a href="https://ZHILIN-0817.github.io/cd2022">40923156 web</a> | <a href="https://github.com/ZHILIN-0817/cd2022">40923156 repo</a> | <br/>  <a href="https://40971134.github.io/cd2022">40971134 web</a> | <a href="https://github.com/40971134/cd2022">40971134 repo</a> |</p>
+<p><em>cd2022ag2</em><br/>  <a href="https://40923102.github.io/cd2022">40923102 web</a> | <a href="https://github.com/40923102/cd2022">40923102 repo</a> | <br/>  <a href="https://409231044.github.io/cd2022">40923104 web</a> | <a href="https://github.com/409231044/cd2022">40923104 repo</a> | <br/>  <a href="https://40923105.github.io/cd2022">40923105 web</a> | <a href="https://github.com/40923105/cd2022">40923105 repo</a> | <br/>  <a href="https://40923106.github.io/cd2022">40923106 web</a> | <a href="https://github.com/40923106/cd2022">40923106 repo</a> | <br/>  <a href="https://40923107.github.io/cd2022">40923107 web</a> | <a href="https://github.com/40923107/cd2022">40923107 repo</a> | <br/>  <a href="https://40923110.github.io/cd2022">40923110 web</a> | <a href="https://github.com/40923110/cd2022">40923110 repo</a> | <br/>  <a href="https://40923121.github.io/cd2022">40923121 web</a> | <a href="https://github.com/40923121/cd2022">40923121 repo</a> | <br/>  <a href="https://40923153.github.io/cd2022">40923153 web</a> | <a href="https://github.com/40923153/cd2022">40923153 repo</a> |</p>
+<p><em>cd2022ag3</em><br/>  <a href="https://CYC40923109.github.io/cd2022">40923109 web</a> | <a href="https://github.com/CYC40923109/cd2022">40923109 repo</a> | <br/>  <a href="https://40923111.github.io/cd2022">40923111 web</a> | <a href="https://github.com/40923111/cd2022">40923111 repo</a> | <br/>  <a href="https://40923114.github.io/cd2022">40923114 web</a> | <a href="https://github.com/40923114/cd2022">40923114 repo</a> | <br/>  <a href="https://jason60714.github.io/cd2022">40923115 web</a> | <a href="https://github.com/jason60714/cd2022">40923115 repo</a> | <br/>  <a href="https://40923122.github.io/cd2022">40923122 web</a> | <a href="https://github.com/40923122/cd2022">40923122 repo</a> | <br/>  <a href="https://40923129.github.io/cd2022">40923129 web</a> | <a href="https://github.com/40923129/cd2022">40923129 repo</a> | <br/>  <a href="https://a40923146.github.io/cd2022">40923146 web</a> | <a href="https://github.com/a40923146/cd2022">40923146 repo</a> | <br/>  <a href="https://40923148.github.io/cd2022">40923148 web</a> | <a href="https://github.com/40923148/cd2022">40923148 repo</a> |</p>
+<p><em>cd2022ag4</em><br/>  <a href="https://40923116.github.io/cd2022">40923116 web</a> | <a href="https://github.com/40923116/cd2022">40923116 repo</a> | <br/>  <a href="https://40923124.github.io/cd2022">40923124 web</a> | <a href="https://github.com/40923124/cd2022">40923124 repo</a> | <br/>  <a href="https://40923125.github.io/cd2022">40923125 web</a> | <a href="https://github.com/40923125/cd2022">40923125 repo</a> | <br/>  <a href="https://40923126-1.github.io/cd2022">40923126 web</a> | <a href="https://github.com/40923126-1/cd2022">40923126 repo</a> | <br/>  <a href="https://40923127-1.github.io/cd2022">40923127 web</a> | <a href="https://github.com/40923127-1/cd2022">40923127 repo</a> | <br/>  <a href="https://40923128.github.io/cd2022">40923128 web</a> | <a href="https://github.com/40923128/cd2022">40923128 repo</a> | <br/>  <a href="https://40923138.github.io/cd2022">40923138 web</a> | <a href="https://github.com/40923138/cd2022">40923138 repo</a> | <br/>  <a href="https://40923143.github.io/cd2022">40923143 web</a> | <a href="https://github.com/40923143/cd2022">40923143 repo</a> |</p>
+<p><em>cd2022ag5</em><br/>  <a href="https://40923123.github.io/cd2022">40923123 web</a> | <a href="https://github.com/40923123/cd2022">40923123 repo</a> | <br/>  <a href="https://40923131.github.io/cd2022">40923131 web</a> | <a href="https://github.com/40923131/cd2022">40923131 repo</a> | <br/>  <a href="https://40923133.github.io/cd2022">40923133 web</a> | <a href="https://github.com/40923133/cd2022">40923133 repo</a> | <br/>  <a href="https://40923134.github.io/cd2022">40923134 web</a> | <a href="https://github.com/40923134/cd2022">40923134 repo</a> | <br/>  <a href="https://40923135.github.io/cd2022">40923135 web</a> | <a href="https://github.com/40923135/cd2022">40923135 repo</a> | <br/>  <a href="https://40923139.github.io/cd2022">40923139 web</a> | <a href="https://github.com/40923139/cd2022">40923139 repo</a> | <br/>  <a href="https://40923142.github.io/cd2022">40923142 web</a> | <a href="https://github.com/40923142/cd2022">40923142 repo</a> | <br/>  <a href="https://40923151.github.io/cd2022">40923151 web</a> | <a href="https://github.com/40923151/cd2022">40923151 repo</a> |</p>
+<p><em>cd2022ag6</em><br/>  <a href="https://40923113.github.io/cd2022">40923113 web</a> | <a href="https://github.com/40923113/cd2022">40923113 repo</a> | <br/>  <a href="https://40923130.github.io/cd2022">40923130 web</a> | <a href="https://github.com/40923130/cd2022">40923130 repo</a> | <br/>  <a href="https://40923140.github.io/cd2022">40923140 web</a> | <a href="https://github.com/40923140/cd2022">40923140 repo</a> | <br/>  <a href="https://40923144.github.io/cd2022">40923144 web</a> | <a href="https://github.com/40923144/cd2022">40923144 repo</a> | <br/>  <a href="https://40923145.github.io/cd2022">40923145 web</a> | <a href="https://github.com/40923145/cd2022">40923145 repo</a> | <br/>  <a href="https://40923149r.github.io/cd2022">40923149 web</a> | <a href="https://github.com/40923149r/cd2022">40923149 repo</a> | <br/>  <a href="https://40923150.github.io/cd2022">40923150 web</a> | <a href="https://github.com/40923150/cd2022">40923150 repo</a> | <br/>  <a href="https://40923152.github.io/cd2022">40923152 web</a> | <a href="https://github.com/40923152/cd2022">40923152 repo</a> |</p>
+<p><em>cd2022ag7</em><br/>  <a href="https://40823132.github.io/cd2022">40823132 web</a> | <a href="https://github.com/40823132/cd2022">40823132 repo</a> | <br/>  <a href="https://40823143.github.io/cd2022">40823143 web</a> | <a href="https://github.com/40823143/cd2022">40823143 repo</a> | <br/>  <a href="https://Maxlee999.github.io/cd2022">40923117 web</a> | <a href="https://github.com/Maxlee999/cd2022">40923117 repo</a> | <br/>  <a href="https://40923118.github.io/cd2022">40923118 web</a> | <a href="https://github.com/40923118/cd2022">40923118 repo</a> | <br/>  <a href="https://40923120.github.io/cd2022">40923120 web</a> | <a href="https://github.com/40923120/cd2022">40923120 repo</a> | <br/>  <a href="https://40923136-1.github.io/cd2022">40923136 web</a> | <a href="https://github.com/40923136-1/cd2022">40923136 repo</a> | <br/>  <a href="https://40923147.github.io/cd2022">40923147 web</a> | <a href="https://github.com/40923147/cd2022">40923147 repo</a> | <br/>  <a href="https://40923157.github.io/cd2022">40923157 web</a> | <a href="https://github.com/40923157/cd2022">40923157 repo</a> |</p>
+<h1>NX_video</h1>
 <p><em>7</em>_Expressions (Continued)</p>
 <script>
 var winkVideoData = {
@@ -33,6 +149,7 @@ var winkVideoData = {
 </div>
 <div class="winkVideoPlayOverlayClass"></div>
 </div>
+<p><em>27_Design Fundamentals</em></p>
 <script>
 var winkVideoData = {
   dataVersion: 1,
