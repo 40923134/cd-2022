@@ -117,6 +117,17 @@ doc['clear_bd1'].bind('click', clear_bd1)
 run1()
 </script>
 <h2>w7</h2>
+<h4>設法以隨身程式系統編譯此程式碼:</h4>
+<ol>
+<li>git clone<span> </span><a href="https://github.com/mdecourse/scarysim.git">https://github.com/mdecourse/scarysim.git</a></li>
+<li>修改 scarysim.pro, 蓋掉第 11 行, 成為 # LIBS     += -lglut -lGLU</li>
+<li>cd scarysim</li>
+<li>qmake -o Makefile scarysim.pro</li>
+<li>mingw32-make -f Makefile.Release 可以在 release 目錄取得 scarysim.exe</li>
+<li>因為 scarysim.exe 執行需要 base.obj, arm1.obj, arm2.obj, arm3.obj 等零件外型檔案, 以及對應的 .mtl 材質檔案, 因此可將 scarysim.exe 移至倉儲根目錄執行.</li>
+<li>由於此套程式碼在 Target 模式下, 零組件間會造成干涉, 表示其 Inverse Kinematic 運算並不正確, 請設法修正此錯誤後, 修改其零件尺寸與操作控制方法, 設法模擬 MTB 的<span> </span><a href="https://www.youtube.com/results?search_query=mtb+robot">Pick and Place demo</a><span> </span>範例.</li>
+<li>請各組指定組員分別利用 Solvespace、NX12、NX1980、NX2008 與 Onshape 繪製<span> </span><a href="https://www.youtube.com/results?search_query=mtb+robot">Pick and Place demo</a><span> </span>範例所需的零組件, 並完成 Coppeliasim 4.1.0、4.2.0 與 4.3.0 版的 MTB 機械手臂 Pick and Place 模擬, 完成後請說明在使用不同 MCAD 系統與版次的情況下, 該如何執行協同產品設計專案.</li>
+</ol>
 <h1>分組名單</h1>
 <p><em>cd2022ag1</em><br/>  <a href="https://a40923101.github.io/cd2022">40923101 web</a> | <a href="https://github.com/a40923101/cd2022">40923101 repo</a> | <br/>  <a href="https://40923103.github.io/cd2022">40923103 web</a> | <a href="https://github.com/40923103/cd2022">40923103 repo</a> | <br/>  <a href="https://40923108.github.io/cd2022">40923108 web</a> | <a href="https://github.com/40923108/cd2022">40923108 repo</a> | <br/>  <a href="https://40923119.github.io/cd2022">40923119 web</a> | <a href="https://github.com/40923119/cd2022">40923119 repo</a> | <br/>  <a href="https://s40923137.github.io/cd2022">40923137 web</a> | <a href="https://github.com/s40923137/cd2022">40923137 repo</a> | <br/>  <a href="https://40923154.github.io/cd2022">40923154 web</a> | <a href="https://github.com/40923154/cd2022">40923154 repo</a> | <br/>  <a href="https://ZHILIN-0817.github.io/cd2022">40923156 web</a> | <a href="https://github.com/ZHILIN-0817/cd2022">40923156 repo</a> | <br/>  <a href="https://40971134.github.io/cd2022">40971134 web</a> | <a href="https://github.com/40971134/cd2022">40971134 repo</a> |</p>
 <p><em>cd2022ag2</em><br/>  <a href="https://40923102.github.io/cd2022">40923102 web</a> | <a href="https://github.com/40923102/cd2022">40923102 repo</a> | <br/>  <a href="https://409231044.github.io/cd2022">40923104 web</a> | <a href="https://github.com/409231044/cd2022">40923104 repo</a> | <br/>  <a href="https://40923105.github.io/cd2022">40923105 web</a> | <a href="https://github.com/40923105/cd2022">40923105 repo</a> | <br/>  <a href="https://40923106.github.io/cd2022">40923106 web</a> | <a href="https://github.com/40923106/cd2022">40923106 repo</a> | <br/>  <a href="https://40923107.github.io/cd2022">40923107 web</a> | <a href="https://github.com/40923107/cd2022">40923107 repo</a> | <br/>  <a href="https://40923110.github.io/cd2022">40923110 web</a> | <a href="https://github.com/40923110/cd2022">40923110 repo</a> | <br/>  <a href="https://40923121.github.io/cd2022">40923121 web</a> | <a href="https://github.com/40923121/cd2022">40923121 repo</a> | <br/>  <a href="https://40923153.github.io/cd2022">40923153 web</a> | <a href="https://github.com/40923153/cd2022">40923153 repo</a> |</p>
@@ -170,5 +181,8 @@ var winkVideoData = {
 <div class="winkVideoControlBarProgressFilledMiddleClass"></div>
 <div class="winkVideoControlBarProgressThumbClass"></div>
 </div>
-<div class="winkVideoPlayOverlayClass"></div>
-</div>
+<h1>midterm</h1>
+<p>零件連結:<a href="https://drive.google.com/drive/folders/1akPnACuWyMv73ydqB3_cSTZlpMMlMdzb?usp=sharing">Onshape</a></p>
+<p>流程與心得簡報</p>
+<p>我們組分組工作<span>，我是負責工程圖與組裝，要先將多個零件簡單化，再將零件更改尺寸以便配合，零件畫好後組裝起來，若發現有無法配合的部分，再去照錯誤的地方進行修改，完成後就將圖檔交給負責後續的同學。</span></p>
+<p></p></div>
