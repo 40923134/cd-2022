@@ -56,8 +56,8 @@
 <v t="leo.20170710022041.1"><vh>@path markdown</vh>
 <v t="leo.20180115115910.1"><vh>2020</vh>
 <v t="leo.20180423103639.1"><vh>cd2022_課程</vh>
-<v t="leo.20180423103656.1"><vh>@edit NXmd</vh></v>
 <v t="leo.20220420101206.1"><vh>@edit w6.md</vh></v>
+<v t="leo.20220420103328.1"><vh>@edit NX.md</vh></v>
 <v t="leo.20220417140325.1"><vh>@edit w7.md</vh></v>
 <v t="leo.20220417114702.1"><vh>@edit w8.md</vh></v>
 </v>
