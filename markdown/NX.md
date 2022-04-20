@@ -24,7 +24,7 @@ var winkVideoData = {
   },
 };
 // ]]></script>
-<div class="winkVideoContainerClass"><video width="1285" height="730" class="winkVideoClass" data-dirname="/static" data-varname="winkVideoData" video="">
+<div class="winkVideoContainerClass"><video width="1000" height="600" class="winkVideoClass" data-dirname="/static" data-varname="winkVideoData" video="">
 <source src="./../downloads/7.mp4" type="video/mp4" /></video>
 <div class="winkVideoOverlayClass"></div>
 <div class="winkVideoControlBarClass"><button class="winkVideoControlBarPlayButtonClass"></button> <button class="winkVideoControlBarPauseButtonClass"></button>
@@ -47,7 +47,7 @@ var winkVideoData = {
   },
 };
 // ]]></script>
-<div class="winkVideoContainerClass"><video width="1285" height="730" class="winkVideoClass" data-dirname="/static" data-varname="winkVideoData" video="">
+<div class="winkVideoContainerClass"><video width="1000" height="600" class="winkVideoClass" data-dirname="/static" data-varname="winkVideoData" video="">
 <source src="./../downloads/27.mp4" type="video/mp4" /></video>
 <div class="winkVideoOverlayClass"></div>
 <div class="winkVideoControlBarClass"><button class="winkVideoControlBarPlayButtonClass"></button> <button class="winkVideoControlBarPauseButtonClass"></button>
